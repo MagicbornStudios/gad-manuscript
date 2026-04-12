@@ -1,0 +1,17 @@
+{
+  "title": "Mordred's Tale — Part III: Boughfall",
+  "author": "Ben Garrard",
+  "description": "Giants, survival, and statecraft after the tree is neglected. Power hardens into law while the world refuses to stay cut.",
+  "genres": ["Fantasy", "Dark fantasy", "Political fantasy"],
+  "epubPartition": {
+    "sourceBook": "mordreds-tale/full",
+    "chapterStart": 19,
+    "chapterEnd": 19,
+    "renumberChapters": true,
+    "renumberStart": 1
+  },
+  "epubPlanningDirs": [
+    "../../../docs/books/planning",
+    "../../../docs/books/mordreds-tale/planning"
+  ]
+}

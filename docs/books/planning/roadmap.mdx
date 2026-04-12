@@ -1,0 +1,36 @@
+---
+title: Roadmap
+description: Phase overview for the books section.
+date: "2026-03-29"
+updated: "2026-03-31"
+order: 1
+repoPath: apps/portfolio/content/docs/books/planning/roadmap.mdx
+---
+
+# Roadmap
+
+## Registry
+
+| Field | Value |
+| --- | --- |
+| `section` | `books` |
+| `status` | `active` |
+| `scope` | reader shell, publishing, and books-side AI |
+
+## Phases
+
+| Phase | Status | Focus | Next |
+| --- | --- | --- | --- |
+| `books-reader-01` | `done` | establish the dedicated reader as the main reading surface and ship annotations/export basics | maintain only |
+| `books-reader-02` | `done` | merge exported annotations into built book output and keep planning supplements stable | maintain only; plan the next reader phase explicitly |
+| `books-reader-03` | `done` | turn `/apps/reader` into a stable library shell and extract runtime ownership cleanly | maintain only |
+| `books-reader-05` | `done` | move the reader onto real backend persistence, gated editing, auth-aware settings, and a more polished workspace | maintain only |
+| `books-reader-06` | `done` | remove duplicate reader shell chrome, restore the built-in shelf, and align `@portfolio/repub-builder` with portfolio shadcn/tokens through package-local primitives | maintain only |
+| `books-reader-07` | `done` | expand the mirrored shadcn stack inside `@portfolio/repub-builder` for **chrome and forms**; keep the **`EpubViewer` reading stage** on the existing **`react-reader`** core | maintain only; custom remainder in [task registry](/docs/books/planning/task-registry#remainder-books-reader-07-03) |
+| `books-publishing-01` | `planned` | expand edition and publishing records and ship the next visible EPUB | next books-phase candidate when prioritized |
+| `books-publishing-03` | `planned` | **Magicborn media:** shared style prompt + beat/scene prompts, composer, CLI, cover wiring (**[kickoff](/docs/books/planning/plans/books-publishing-03-magicborn-media/plan)**); depends **`global-auth-03`** for owner-only generation | execute [task registry](/docs/books/planning/task-registry#phase-books-publishing-03-magicborn-media--prompts) |
+| `books-ai-01` | `planned` | stabilize the Payload plus sqlite-vec RAG path and resolve the live quota mismatch | next when books-side AI is prioritized |
+
+## Magicborn line (fiction)
+
+Cross-title **reading order**, **chapter beat tables**, and **TB-*** open questions live in [section State](/docs/books/planning/state#magicborn-line-world-order-and-chapter-beats), not in ad hoc planning filenames. **Locks:** [`BOOKS-WORLD-CHRONOLOGY`](/docs/books/planning/decisions). **Work queue:** phase **`books-cross-title-01`** in [task registry](/docs/books/planning/task-registry).

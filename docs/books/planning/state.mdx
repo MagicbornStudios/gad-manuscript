@@ -1,0 +1,96 @@
+---
+title: State
+description: Compact state records for the books section.
+date: "2026-03-15"
+updated: "2026-03-31"
+order: 2
+repoPath: apps/portfolio/content/docs/books/planning/state.mdx
+taskPhase: books-publishing-03
+---
+
+# State
+
+## Registry
+
+| Field | Value |
+| --- | --- |
+| `section` | `books` |
+| `owner` | `books-section` |
+| `status` | `active` |
+| `updated` | `2026-03-31` |
+
+## Current Cycle
+
+| Field | Value |
+| --- | --- |
+| `phase` | **`books-publishing-03` is the active planning track:** Magicborn **style + scene** prompt library, **shared composer**, **CLI** generation, cover wiring — with **`global-auth-03`** gating owner-only image APIs. **`books-publishing-01`** (edition records) can run in parallel when you pick it up. |
+| `plan` | **Kickoff:** [books-publishing-03 Magicborn media](/docs/books/planning/plans/books-publishing-03-magicborn-media/plan). Reader shell remains stable (**`books-reader-07`** complete). |
+| `focus` | land **prompt library + composer** first, then **CLI**; coordinate **auth gates** (`/api/media/generate`) with **`global-auth-03-01`** before treating Copilot as production |
+| `constraint` | anonymous reading and local EPUB import stay available, but write-capable behavior and DB persistence must go through the shared auth/entitlement layer; local import alone must not auto-upload a book or mutate backend records |
+
+## Next Queue
+
+| Priority | Action | Type |
+| --- | --- | --- |
+| `1` | execute **`books-publishing-03`**: style prompt + beat/scene seeds + composer + CLI + optional cover wiring — see [task registry](/docs/books/planning/task-registry#phase-books-publishing-03-magicborn-media--prompts) | `publishing` |
+| `2` | **`global-auth-03`** in parallel: gate media API + **visitor reader** export-first policy (**[global task registry](/docs/global/planning/task-registry#phase-global-auth-03-restricted-operators--visitor-reader-policy)**) | `cross-cutting` |
+| `3` | **`books-publishing-01`** edition records + next EPUB when you schedule it | `publishing` |
+| `4` | **`books-ai-01`** when stabilizing Payload + vec RAG for books-side chat | `ai` |
+| `5` | reader: **maintenance only** | `reader-maintenance` |
+
+## References
+
+| Id | Path | Purpose |
+| --- | --- | --- |
+| `books-root` | `books/mordreds_tale/` | authored source of truth |
+| `home-page` | `apps/portfolio/app/page.tsx` | primary site reading entry |
+| `reader-embed` | `apps/portfolio/components/books/BookReaderEmbed.tsx` | embedded reader surface |
+| `viewer` | `vendor/repub-builder/src/reader/EpubViewer.tsx` | EPUB runtime, annotations UI, export/repack (**re-export** from `apps/portfolio/lib/epub-annotations.ts` for legacy imports) |
+| `reader-workspace` | `vendor/repub-builder/src/reader/ReaderWorkspace.tsx`, `apps/portfolio/components/books/ReaderWorkspace.tsx`, `apps/portfolio/lib/reader/workspace-library.ts` | library + reading shell + **v1 dashboard** sidebar; host wires **`Link`**, backend upload shelf records, and planning cockpit |
+| `reader-phase-plan` | `apps/portfolio/content/docs/books/planning/plans/books-reader-06/PLAN.mdx` | kickoff for the shell cleanup + shadcn alignment pass |
+| `books-lib` | `apps/portfolio/lib/books.ts` | current manifest reader; needs richer library metadata for cover-forward shelf UI |
+| `epub-annotations` | `apps/portfolio/lib/epub-annotations.ts` | IndexedDB, schema, JSON and annotated-EPUB zip |
+| `reader-planning-strip` | `vendor/repub-builder/src/reader/ReaderPlanningStrip.tsx` | **`readerModalStore`** only (**`BOOKS-READER-PLANNING-STRIP-PACKAGE-READER-MODAL-STORE`**) -- [embed architecture](/docs/documentation/reader-repo-planner-embed-architecture) |
+| `site-copilot` | `apps/portfolio/components/site/SiteCopilot.tsx` | floating site chat shell |
+| `magicborn-media-plan` | `apps/portfolio/content/docs/books/planning/plans/books-publishing-03-magicborn-media/PLAN.mdx` | Magicborn style + scene prompts, CLI, cover wiring (**`books-publishing-03`**) |
+| `media-generate-api` | `apps/portfolio/app/api/media/generate/route.ts` | OpenAI Images; **must align with `global-auth-03-01`** for owner-only access |
+| `chat-api` | `apps/portfolio/app/api/chat/route.ts` | assistant-ui-backed public chat route with server-side RAG grounding |
+| `logging-lib` | `apps/portfolio/lib/logging.ts` | shared env-driven structured logging for client/server flows |
+| `rag-search-api` | `apps/portfolio/app/api/rag/search/route.ts` | read-only retrieval API returning cited chunks |
+| `rag-ingest-runner` | `apps/portfolio/scripts/rag-ingest-runner.cjs` | script-first ingest entry with bundle-time env loading |
+| `rag-ingest-service` | `apps/portfolio/lib/rag/ingest.ts` | Payload-backed source/chunk/run ingest and sidecar DB commit logic |
+| `rag-search-db` | `apps/portfolio/lib/rag/search-db.ts` | sidecar SQLite FTS5 + `sqlite-vec` search index |
+| `db-config` | `apps/portfolio/drizzle.config.ts` | current SQLite database path and Drizzle config |
+| `db-schema` | `apps/portfolio/lib/db/schema.ts` | existing SQLite schema surface to reconcile with Payload plans |
+| `payload-config` | `apps/portfolio/payload.config.ts` | auth, collections, and SQLite-backed Payload runtime |
+| `reader-workspace-contract` | `apps/portfolio/lib/reader/workspace-contract.ts`, `apps/portfolio/lib/reader/workspace-write.ts` | shared settings/access/library record contract, owner-only write paths, and anonymous fallback rules |
+| `reader-workspace-bootstrap` | `apps/portfolio/lib/reader/workspace-bootstrap.ts`, `apps/portfolio/app/api/reader/workspace/route.ts` | auth-aware workspace bootstrap for later client hydration |
+| `reader-collections` | `apps/portfolio/lib/payload/collections/readerLibraryAssets.ts`, `apps/portfolio/lib/payload/collections/readerLibraryRecords.ts`, `apps/portfolio/lib/payload/collections/readerSettings.ts` | backend reader library/settings/upload foundation for entitled sessions |
+| `reader-reading-state` | `apps/portfolio/lib/reader/reading-state.ts`, `apps/portfolio/app/api/reader/state/route.ts`, `apps/portfolio/lib/payload/collections/readerReadingStates.ts` | DB-backed annotations/progress for entitled built-in reading sessions with local fallback intact |
+| `reader-write-routes` | `apps/portfolio/app/api/reader/workspace/settings/route.ts`, `apps/portfolio/app/api/reader/library/upload/route.ts` | owner-only workspace settings save and explicit EPUB upload worker boundaries |
+| `repub-reader-runtime` | **`@portfolio/repub-builder/reader`** (`vendor/repub-builder/src/reader/index.ts`) | **ReaderWorkspace**, **`EpubViewer`**, shelf, **`readerModalStore`**, **`ReaderModalRoot`**; consumed by **`apps/portfolio`** via **`transpilePackages`** + site **`SidebarTrigger`** |
+| `books-structure-doc` | `apps/portfolio/content/docs/books/book-structure.mdx` | formal source and EPUB structure rules |
+| `book-output` | `apps/portfolio/public/books/` | generated reading artifacts |
+| `front-page-reader` | `apps/portfolio/components/home/FeaturedBookExperience.tsx` | user-triggered reader mount path |
+| `route-conventions` | `apps/portfolio/content/docs/documentation/route-conventions.mdx` | `/apps` vs `/docs`; reader shell planning |
+| `magicborn-line-beats` | this page -- [Magicborn line](#magicborn-line-world-order-and-chapter-beats) | cross-title reading order, chapter beat tables, TB-* open questions |
+
+## Magicborn line: world order and chapter beats
+
+Section-level fiction coordination for the three Magicborn-line titles. **Locks:** [`BOOKS-WORLD-CHRONOLOGY`](/docs/books/planning/decisions), [`MRP-PREQUEL-END`](/docs/books/magicborn-rune-path/planning/decisions), [`ML-KAEL-AGE-AT-ALUN`](/docs/books/mordreds-legacy/planning/decisions). **Cross-title tasks:** phase **`books-cross-title-01`** in [section task registry](/docs/books/planning/task-registry).
+
+### World chronology and reading order
+
+| Order | Book | Slug | Note |
+| --- | --- | --- | --- |
+| `1` | **Mordred's Tale — Part I: Wells of Tarro** | `mordreds_tale_part_1` | Prologue + **14** numbered chapters (target pacing); curtain = **Morgana carries Mordred south** — [Tale state](/docs/books/mordreds-tale/planning/state#part-1--fourteen-chapter-map-target) |
+| `2` | **Mordred's Tale — Part II: Smoke and Crowns** | `mordreds_tale_part_2` | Ch11–Ch14: war, political pressure, Mordred/Enid/Gwyneth kinship tension, ascent |
+| `3` | **Mordred's Tale — Part III: Boughfall** | `mordreds_tale_part_3` | Ch15+ lane: giants, survival, power hardening into law (currently scaffold seed) |
+| `4` | **Magicborn: The Rune Path** | `magicborn_rune_path` | **Kael prequel** -- opens **17**; ends **still running** (fugitive on the Path); **not** a sequel to Tale |
+| `5` | **Mordred's Legacy** | `mordreds_legacy` | Book 2 -- **Alun** POV; **Kael 42** at first meeting |
+
+**Gap (~25y):** between Rune Path **ending** (Kael running) and Legacy **opening** (Kael 42) remains **deliberately flexible** until [`mrp-outline-02-02`](/docs/books/magicborn-rune-path/planning/task-registry) + [`ml-book2-02-03`](/docs/books/mordreds-legacy/planning/task-registry) are answered.
+
+### Planning note: POV stickiness
+
+**Legacy-only craft choice (not chronology):** whether **Acts II-III** stay **Alun-only** tight third, or add **occasional adult POV** (e.g. Kael) for institutional counterweight. Tracked as [`ML-POV-STICKINESS`](/docs/books/mordreds-legacy/planning/decisions) (`proposed`). Unrelated to reading order.
