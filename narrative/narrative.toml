@@ -1,0 +1,31 @@
+# Magicborn — narrative registry
+#
+# Loaded by `gad narrative enter magicborn`. Not auto-read by coding agents.
+# The SOUL.md at repo root resolves active soul through this file.
+
+project = "magicborn"
+name = "Magicborn"
+activeSoul = "kael"
+
+[sources]
+books = "../books"                           # primary book tree (pre-move)
+inworld = "../docs/magicborn/in-world"       # in-world documents
+souls = "./souls"
+
+[[books]]
+slug = "magicborn-rune-path"
+title = "Magicborn: The Rune Path"
+path = "../books/magicborn-rune-path"
+order = 1
+
+[[books]]
+slug = "mordreds-tale"
+title = "Mordred's Tale"
+path = "../books/mordreds-tale"
+order = 2
+
+[[books]]
+slug = "mordreds-legacy"
+title = "Mordred's Legacy"
+path = "../books/mordreds-legacy"
+order = 3
